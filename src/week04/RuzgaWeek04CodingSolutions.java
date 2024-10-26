@@ -1,9 +1,11 @@
 package week04;
 
-import java.lang.reflect.Array;
+import java.util.Scanner;
 
 public class RuzgaWeek04CodingSolutions {
 
+	static Scanner userIn = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		System.out.println("Ruzga Week 04 Coding Solutions");
 		System.out.println("---------------------------------------");
@@ -194,8 +196,43 @@ public class RuzgaWeek04CodingSolutions {
 *	
  */
 	// Question 13 Solution
+		
 		System.out.println("\nQ13 Solution:");
 		System.out.println("------------------");
+	// added Scanner userIn at top of class section and included the import		
+		int onceMore = 1;
+		
+		// Run the calculate down payment amount while the user continues to enter 1 after each calc
+		while(onceMore == 1) {
+		
+		double principle = 0.00;
+		double percentDown = 0.00;
+		
+		System.out.println("Calculate Downpayment needed for Principle amount entered by User");
+		System.out.print("How much is the principle? ");
+		principle = userIn.nextDouble();
+		
+		System.out.print("\nEnter down payment percent eg 10.00 for 10% ");
+		percentDown = userIn.nextDouble();
+		
+		System.out.println("-------------");
+		System.out.println("Your principle of: $" + principle);
+		System.out.println("Percent down of: " + percentDown + "%");
+		System.out.println("-------------");
+		
+		// calculate the downpayment amouny by calling calcDownPaymentAmt method 
+		System.out.println("You will need to put $" + calcDownPaymentAmt(principle, percentDown) + " down\n");
+		
+		// Ask user if they want to run this again
+		System.out.println("\nEnter 1 to run again: ");
+		onceMore = userIn.nextInt();
+		
+	
+		if (onceMore != 1) {
+			// User indicated they are done!  See ya later!
+			System.out.println(" ---- Thank you! Good Bye! -------" );
+			} 
+		}	
 		
 // END of Coding Assignment Footer
 		System.out.println("***************************************");	
@@ -271,6 +308,12 @@ public class RuzgaWeek04CodingSolutions {
 	
 	
 	//Q13 Method Solution
+	//   This method takes a double for principle amount and a double for percentage down and returns a
+	// down payment required amount which is also a double.
+	//
+	public static double calcDownPaymentAmt(double principle, double percentDown) {
+		return (principle * (percentDown / 100));
+	}
 	
 } // end of class RuzgaWeek04CodingSolutions
 
