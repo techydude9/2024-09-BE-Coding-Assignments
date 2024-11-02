@@ -1,6 +1,12 @@
 package week05;
 
-public class SpacedLogger {
+import java.util.ArrayList;
+import java.util.List;
+
+public class SpacedLogger implements Logger{
+	
+	List<String> newStr = new ArrayList<>();
+	List<String> asterickLn = new ArrayList<>();
 	
 	public void log(String message) {
 		System.out.println("\t***" + message + "***");
