@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsteriskLogger implements Logger{
-	
+	// Using List and StringBuffer to be used in this class
 	List<String> newStr = new ArrayList<>();
 	List<String> asteriskLn = new ArrayList<>();
 	StringBuffer tempStr = new StringBuffer();
