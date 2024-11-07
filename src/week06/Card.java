@@ -9,7 +9,7 @@ public class Card {
 	String name;   //Name should be value + suit. eg Ace of Diamonds
 	int value;
 	
-	public Card(String name, int value) {
+	Card(String name, int value) {
 		this.name = name;
 		this.value = value;
 	}

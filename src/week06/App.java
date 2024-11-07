@@ -24,6 +24,10 @@ public class App {
 	// Call the describe method on the newly shuffled deck.
 		cardDeck.describe();
 
+	// Testing Player
+		Player players = new Player("Bob");
+		players.describe();
+		
 		
 		
 		
