@@ -28,6 +28,8 @@ public class Deck {
 		}
 	}  // End of Deck
 	
+	
+	// getters and setters
 	public List<Card> getCards() {
 		return cards;
 	}
@@ -36,19 +38,24 @@ public class Deck {
 		this.cards = cards;
 	}
 	
+	// end of getters and setters
+	
+	// describe method
 	public void describe() {
 		for (Card card : this.cards) {
 			card.describe();
 		}
 	}
 	
+	// shuffle method
 	public void shuffle() {
 		Collections.shuffle(this.cards);
 	}
 	
+	// draw a card method
 	public Card draw() {
 		Card card = this.cards.remove(0);
 		return card;
-}
-
+	}
+	
 } // end of Deck class
