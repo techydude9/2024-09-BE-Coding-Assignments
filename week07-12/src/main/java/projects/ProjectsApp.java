@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import projects.dao.DbConnection;
 import projects.entity.Project;
 import projects.exception.DbException;
 import projects.service.ProjectService;
