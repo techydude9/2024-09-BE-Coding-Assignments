@@ -2,7 +2,7 @@ package projects;
 /*
  * Author is Bob Ruzga
  * BackEnd 2024 09 26 Cohort 
- * Week 7 coding assignment
+ * Week 7,8, 9, 10 coding assignments
  */
 
 import java.math.BigDecimal;
@@ -17,18 +17,17 @@ import projects.service.ProjectService;
 public class ProjectsApp {
 
 	// @formatter:off
-			private List<String> operations = List.of(
-				"1) Add a project"
-			);
-			// @formatter:on
-			
-			private Scanner scanner = new Scanner(System.in);
-			private ProjectService projectService = new ProjectService();
+	private List<String> operations = List.of(
+		"1) Add a project",
+		"2) List projects"
+	);
+	// @formatter:on
+	
+	private Scanner scanner = new Scanner(System.in);
+	private ProjectService projectService = new ProjectService();
 				
+// Start of main method -------
 	public static void main(String[] args) {
-	// Start at Build Menu Application in instructions 12/9/2024
-	// Steps 1-10 COMPLETE, provide resource step complete
-	// start on Mods to main app
 		
 		new ProjectsApp().processUserSelections();
 			
@@ -51,6 +50,10 @@ public class ProjectsApp {
 					createProject();
 					break;
 				
+				case 2:
+					listProjects();
+					break;
+					
 				default:
 					System.out.println("\n" + selection +  " is not valid. Try again.");
 				} // end of switch
@@ -61,6 +64,16 @@ public class ProjectsApp {
 		} // end of while loop
 		
 	} // end of processUserSelections method
+	
+	private void listProjects() {
+		List<Project> projects = projectService.fetchAllProjects();
+		
+		System.out.println("\nProjects:");
+		
+		projects.forEach(project -> System.out.println("   " +
+				project.getProjectId() + ": " + project.getProjectName()));
+		
+	} // end of listProjects method
 
 	private void createProject() {
 		String projectName = getStringInput("Enter the project name");

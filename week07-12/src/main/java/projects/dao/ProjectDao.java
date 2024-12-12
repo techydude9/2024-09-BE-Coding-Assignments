@@ -3,7 +3,10 @@ package projects.dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import projects.entity.Project;
 import projects.exception.DbException;
@@ -54,6 +57,34 @@ public class ProjectDao extends DaoBase {
 			throw new DbException(e);
 		} // end of outer catch block
 	} 
-	// end of insertProject method
+	// end of insertProject method ----------
+
+	public List<Project> fetchAllProjects() {
+		String sql = "SELECT * FROM " +
+			PROJECT_TABLE + " ORDER BY project_name";
+		
+		try(Connection conn = DbConnection.getConnection()) {
+			startTransaction(conn);
+			
+			try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+				try(ResultSet rs = stmt.executeQuery()) {
+					List<Project> projects = new LinkedList<>();
+					
+					while(rs.next()) {
+						projects.add(extract(rs, Project.class));
+					}
+					return projects;
+				}
+			}
+			catch(Exception e) {
+				rollbackTransaction(conn);
+				throw new DbException(e);
+			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e);
+		}
+		
+	}  // end of fetchAllProjects method ------- 
 
 }  // end of ProjectDao class
