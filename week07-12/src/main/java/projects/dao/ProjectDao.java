@@ -93,7 +93,7 @@ public class ProjectDao extends DaoBase {
 	}  // end of fetchAllProjects method ------- 
 
 	public Optional<Project> fetchProjectById(Integer projectId) {
-		String sql = "SELECT * FROM " + PROJECT_TABLE + "WHERE project_id = ?";
+		String sql = "SELECT * FROM " + PROJECT_TABLE + " WHERE project_id = ?";
 		
 		try(Connection conn = DbConnection.getConnection()) {
 			startTransaction(conn);
