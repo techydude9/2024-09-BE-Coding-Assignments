@@ -247,4 +247,33 @@ public class ProjectDao extends DaoBase {
 				
 	} // end of modifyProjectDetails method ---------
 
+	public boolean deleteProject(Integer projectId) {
+		// @formatter:off
+		String sql = "" 
+			+ "DELETE FROM " + PROJECT_TABLE 
+			+ " WHERE project_id = ?";
+		// @formatter:on
+		
+		try(Connection conn = DbConnection.getConnection()) {
+			startTransaction(conn);
+			
+			try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+				setParameter(stmt, 1, projectId, Integer.class);
+				
+				boolean deleted = stmt.executeUpdate() == 1;
+				commitTransaction(conn);
+				
+				return deleted;
+						
+			} // end of PrepStmt try
+			catch(Exception e) {
+				rollbackTransaction(conn);
+				throw new DbException(e);
+			}  // end of inner catch
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+
+	} // end of deleteProject method --------
+
 }  // end of ProjectDao class

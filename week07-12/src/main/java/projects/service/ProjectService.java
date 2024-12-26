@@ -32,4 +32,11 @@ public class ProjectService {
 		
 	} // end of modifyProjectDetails method ----------
 
+	public void deleteProject(Integer projectId) {
+		if(!projectDao.deleteProject(projectId)) {
+			throw new DbException("Project with ID=" + projectId + " does not exist.");
+		}
+				
+	} // end of deleteProject method -----
+
 } // end of ProjectService class
