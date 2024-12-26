@@ -207,4 +207,44 @@ public class ProjectDao extends DaoBase {
 		} // end of PrepStmt try	
 	} // end of fetchCategoriesForProject method
 
+	public boolean modifyProjectDetails(Project project) {
+		
+		// @formatter:off
+		String sql = "" 
+			+ "UPDATE " + PROJECT_TABLE + " SET "
+			+ "project_name = ?, "
+			+ "estimated_hours = ?, "
+			+ "actual_hours = ?, "
+			+ "difficulty = ?, "
+			+ "notes = ? "
+			+ "WHERE project_id = ?";
+		// @formatter:on
+		
+		try(Connection conn = DbConnection.getConnection()) {
+			startTransaction(conn);
+			
+			try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+				setParameter(stmt, 1, project.getProjectName(), String.class);
+				setParameter(stmt, 2, project.getEstimatedHours(), BigDecimal.class);
+				setParameter(stmt, 3, project.getActualHours(), BigDecimal.class);
+				setParameter(stmt, 4, project.getDifficulty(), Integer.class);
+				setParameter(stmt, 5, project.getNotes(), String.class);
+				setParameter(stmt, 6, project.getProjectId(), Integer.class);
+				
+				boolean modified = stmt.executeUpdate() == 1;
+				commitTransaction(conn);
+				
+				return modified;
+						
+			} // end of PrepStmt try
+			catch(Exception e) {
+				rollbackTransaction(conn);
+				throw new DbException(e);
+			}  // end of inner catch
+		} catch(SQLException e) {
+			throw new DbException(e);
+		}
+				
+	} // end of modifyProjectDetails method ---------
+
 }  // end of ProjectDao class
