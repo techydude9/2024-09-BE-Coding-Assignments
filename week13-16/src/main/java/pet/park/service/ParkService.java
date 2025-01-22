@@ -4,8 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,8 @@ public class ParkService {
 	@Transactional(readOnly = false)
 	public ContributorData saveContributor(ContributorData contributorData) {
 		Long contributorId = contributorData.getContributorId();
-		Contributor contributor = findOrCreateContributor(contributorId);
+		Contributor contributor = findOrCreateContributor(contributorId, 
+				contributorData.getContributorEmail());
 		
 		setFieldsInContributor(contributor, contributorData);
 		return new ContributorData(contributorDao.save(contributor));
@@ -36,10 +39,19 @@ public class ParkService {
 		
 	} // end of setFieldsInContributor method ------
 
-	private Contributor findOrCreateContributor(Long contributorId) {
+	private Contributor findOrCreateContributor(Long contributorId, 
+			String contributorEmail) {
 		Contributor contributor;
 		
 		if(Objects.isNull(contributorId)) {
+			Optional<Contributor> opContrib = 
+					contributorDao.findByContributorEmail(contributorEmail);
+			
+			if(opContrib.isPresent()) {
+				throw new DuplicateKeyException(
+					"Contributor with email " + contributorEmail + " already exists.");
+				
+			}
 			contributor = new Contributor();
 		} else {
 			contributor = findContributorById(contributorId);
