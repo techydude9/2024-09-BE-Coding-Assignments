@@ -31,19 +31,33 @@ public class GlobalControllerErrorHandler {
 		private String uri;
 	}  // end of ExceptionMessage class -----
 	
+	 @ExceptionHandler(UnsupportedOperationException.class)
+	 @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+	 public ExceptionMessage handleUnsupportedOperationException(
+			UnsupportedOperationException ex, WebRequest webRequest) {
+		return buildExceptionMessage(ex, HttpStatus.METHOD_NOT_ALLOWED, webRequest, LogStatus.MESSAGE_ONLY);
+		
+	 } // end of handleUnsupportedOperationException method -----
+	
 	@ExceptionHandler(NoSuchElementException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ExceptionMessage handleNoSuchElementException(
 			NoSuchElementException ex, WebRequest webRequest) {
 		return buildExceptionMessage(ex, HttpStatus.NOT_FOUND, webRequest, LogStatus.MESSAGE_ONLY);
-	} // end of ExceptionMessage method ------
+	} // end of handleNoSuchElementException method ------
 	
 	@ExceptionHandler(DuplicateKeyException.class)
 	@ResponseStatus(code =HttpStatus.CONFLICT)
 	public ExceptionMessage handleDuplicateKeyException (DuplicateKeyException ex, WebRequest webRequest) {
 		return buildExceptionMessage(ex, HttpStatus.CONFLICT, webRequest, LogStatus.MESSAGE_ONLY);
-	} // end of ExceptionMessage method
+	} // end of handleDuplicateKeyException method
 
+	 @ExceptionHandler(Exception.class)
+	 @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	 public ExceptionMessage handleException(Exception ex, WebRequest webRequest) {
+		return buildExceptionMessage(ex, HttpStatus.INTERNAL_SERVER_ERROR, webRequest, LogStatus.STACK_TRACE);
+	 } // end of handleException method ------
+	
 	private ExceptionMessage buildExceptionMessage(Exception ex, HttpStatus status,
 			WebRequest webRequest, LogStatus logStatus) {
 		String message = ex.toString();

@@ -1,9 +1,11 @@
 package pet.park.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +54,20 @@ public class ParkController {
 		log.info("Retrieving contributor with ID={}", contributorId);
 		return parkService.retrieveContributorById(contributorId);
 	} // end of retrieveContributorById method
+	
+	@DeleteMapping("/contributor")
+	public void deleteAllContributors() {
+		log.info("Attempting to delete all contributors");
+		throw new UnsupportedOperationException("Deleting all contributors is not allowed,");
+	} // end of deleteAllContributor method ------
+
+	@DeleteMapping("/contributor/{contributorId}")
+	public Map<String, String> deleteContributorById(@PathVariable Long contributorId) {
+		log.info("Deleting contributor with ID={}", contributorId);
+		
+		parkService.deleteContributorById(contributorId);
+		
+		return Map.of("message", "Deletion of contributor with ID=" + contributorId + " was successful");
+	} // end of deleteContributor method ------
 
 }  // end of ParkController class ---
