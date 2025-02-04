@@ -31,6 +31,14 @@ public class GlobalControllerErrorHandler {
 		private String uri;
 	}  // end of ExceptionMessage class -----
 	
+	@ExceptionHandler(IllegalStateException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ExceptionMessage handleIllegalStateException(IllegalStateException ex,
+		WebRequest webRequest) {
+		return buildExceptionMessage(ex, HttpStatus.BAD_REQUEST, webRequest,
+				LogStatus.MESSAGE_ONLY);
+	} // end of handleIllegalStateException method ----
+	
 	 @ExceptionHandler(UnsupportedOperationException.class)
 	 @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
 	 public ExceptionMessage handleUnsupportedOperationException(
