@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreEmployee;
+import pet.store.dao.EmployeeDao;
 import pet.store.dao.PetStoreDao;
 import pet.store.entity.PetStore;
 
@@ -16,6 +18,9 @@ public class PetStoreService {
 	
 	@Autowired
 	private PetStoreDao petStoreDao;
+	
+	@Autowired
+	private EmployeeDao employeeDao;
 	
 	@Transactional(readOnly = false)
 	public PetStoreData savePetStore(PetStoreData petStoreData) {
@@ -52,5 +57,12 @@ public class PetStoreService {
 				.orElseThrow(() -> new NoSuchElementException(
 					"Pet store with ID=" + petStoreId + " was not found."));
 	}  // end of findPetStoreById method
+
+	@Transactional(readOnly = false)
+	public PetStoreEmployee saveEmployee(Long petStoreId, PetStoreEmployee petStoreEmployee) {
+		
+		Need to start here Service Class step 3 **********
+		
+	}  // end of saveEmployee method ------
 	
 }  // end of PetStoreService class ------
