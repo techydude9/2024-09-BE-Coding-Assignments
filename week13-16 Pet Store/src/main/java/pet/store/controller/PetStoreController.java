@@ -1,7 +1,12 @@
 package pet.store.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -62,5 +67,25 @@ public class PetStoreController {
 		
 	}  // end of addCustomerToPetStore method ---
 	
+	@GetMapping
+	public List<PetStoreData> retrieveAllPetStores() {
+		log.info("Retrieving all pet stores");
+		return petStoreService.retrieveAllPetStores();
+	}  // end of retrieveAllPetStores method ----
 	
+	@GetMapping("/{petStoreId}")
+	public PetStoreData retrievePetStoreById(@PathVariable Long petStoreId) {
+		log.info("Retrieving pet store with ID={}", petStoreId);
+		return petStoreService.retrievePetStoreById(petStoreId);
+	} // end of retrievePetStoreById method ---------
+	
+	@DeleteMapping("/{petStoreId}")
+	public Map<String, String> deletePetStoreById(@PathVariable Long petStoreId) {
+		log.info("Deleting pet store with ID={}", petStoreId);
+		
+		petStoreService.deletePetStoreById(petStoreId);
+		
+		return Map.of("message", "Pet store with ID=" + petStoreId + " deleted.");
+		
+	} // end of deletePetStoreById method -----
 } // end of PetStoreController class ----

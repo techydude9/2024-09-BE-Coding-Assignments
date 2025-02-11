@@ -1,5 +1,7 @@
 package pet.store.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -175,4 +177,36 @@ public class PetStoreService {
 	
 	// end of methods for petStore Customer
 	
+	// Beginning of Get Mappings for Pet Store -----
+	@Transactional(readOnly = true)
+	public List<PetStoreData> retrieveAllPetStores() {
+		List<PetStore> petStores = petStoreDao.findAll();
+		
+		List<PetStoreData> result = new LinkedList<>();
+		
+		for(PetStore petStore : petStores) {
+			PetStoreData psd = new PetStoreData(petStore);
+			
+			psd.getCustomers().clear();
+			psd.getEmployees().clear();
+			
+			result.add(psd);
+		} // end of for
+		
+		return result;
+				
+	}  // end of retrieveAllPetStores method
+	
+	@Transactional(readOnly = true)
+	public PetStoreData retrievePetStoreById(Long petStoreId) {
+		return new PetStoreData(findPetStoreById(petStoreId));
+		
+	}  // end of retrievePetStoreById method
+	// end of all Get Mappings for Pet Store ------
+	
+	@Transactional(readOnly = false)
+	public void deletePetStoreById(Long petStoreId) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		petStoreDao.delete(petStore);
+	}  // end of delete Pet Store method ---- 
 }  // end of PetStoreService class ------
