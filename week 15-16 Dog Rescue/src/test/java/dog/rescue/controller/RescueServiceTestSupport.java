@@ -1,5 +1,8 @@
 package dog.rescue.controller;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -62,5 +65,23 @@ public class RescueServiceTestSupport {
 		return rescueController.retrieveLocation(locationId);
 				
 	}  // end of retrieveLocation method -----
+	
+	protected List<LocationData> insertTwoLocations() {
+		LocationData location1 = insertLocation(buildInsertLocation(1));
+		LocationData location2 = insertLocation(buildInsertLocation(2));
+		
+		return List.of(location1, location2);
+	}  // end of insertTwoLocations method ---
+
+	protected List<LocationData> retrieveAllLocations() {
+		return rescueController.retrieveAllLocations();
+	}  // end of retrieveAllLocations method -----
+
+	protected List<LocationData> sorted(List<LocationData> list) {
+		List<LocationData> data = new LinkedList<>(list);
+		
+		data.sort((loc1, loc2) -> (int)(loc1.getLocationId() - loc2.getLocationId()));
+		return data;
+	}  // end of sorted method ----
 	
 }  // end of RescueServiceTestSupport class -----

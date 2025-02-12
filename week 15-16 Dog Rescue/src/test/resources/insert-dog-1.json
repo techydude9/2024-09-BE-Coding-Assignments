@@ -1,0 +1,13 @@
+{
+  "name": "Ralphy",
+  "age": 4,
+  "color": "brown and white",
+  "breeds": [
+    {
+      "name": "Poodle"
+    },
+    {
+      "name": "Yorkshire Terrier"
+    }
+  ]
+}

@@ -2,6 +2,8 @@ package dog.rescue.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -49,6 +51,18 @@ class RescueControllerTest  extends RescueServiceTestSupport {
 		// Then: the actual location is equal to the expected location
 		assertThat(actual).isEqualTo(expected);
 	}  // end of testRetrieveLocation method ----
+
+	@Test
+	void testRetrieveAllLocations() {
+		// Given: two locations
+		List<LocationData> expected = insertTwoLocations();
+		
+		// When: all locations are retrieved
+		List<LocationData> actual = retrieveAllLocations();
+		// Then: the retrieved locations are the same as expected.
+		assertThat(sorted(actual)).isEqualTo(sorted(expected));
+		
+	}  // end of testRetrieveAllLocations method -----
 
 	
 }  // end of RescueControllerTest class -----------
