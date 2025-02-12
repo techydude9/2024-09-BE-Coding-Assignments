@@ -58,4 +58,9 @@ public class RescueServiceTestSupport {
 		
 	}  // end of insertLocation method ----
 
+	protected LocationData retrieveLocation(Long locationId) {
+		return rescueController.retrieveLocation(locationId);
+				
+	}  // end of retrieveLocation method -----
+	
 }  // end of RescueServiceTestSupport class -----

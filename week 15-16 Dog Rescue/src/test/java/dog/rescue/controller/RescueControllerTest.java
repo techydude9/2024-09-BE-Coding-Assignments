@@ -37,4 +37,18 @@ class RescueControllerTest  extends RescueServiceTestSupport {
 		
 	} // end of testInsertLocation method ----
 
+	@Test
+	void testRetrieveLocation() {
+		// Given: a location
+		LocationData location = insertLocation(buildInsertLocation(1));
+		LocationData expected = buildInsertLocation(1);
+		
+		// When: the location is retrieved by location ID
+		LocationData actual = retrieveLocation(location.getLocationId());
+		
+		// Then: the actual location is equal to the expected location
+		assertThat(actual).isEqualTo(expected);
+	}  // end of testRetrieveLocation method ----
+
+	
 }  // end of RescueControllerTest class -----------
