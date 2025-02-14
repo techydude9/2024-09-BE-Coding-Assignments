@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,6 +32,13 @@ public class RescueController {
 		return rescueService.saveLocation(locationData);
 	} // end of createLocation method ----
 	
+	@PutMapping("/location/{locationId}")
+	public LocationData updateLocation(@PathVariable Long locationId, @RequestBody LocationData locationData) {
+		locationData.setLocationId(locationId);
+		log.info("Updating location with ID={}", locationData);
+		return rescueService.saveLocation(locationData);
+	}  // end of updateLocationById method ----
+	
 	@GetMapping("/location/{locationId}")
 	public LocationData retrieveLocation(@PathVariable Long locationId) {
 		log.info("Retrieving location with ID={}", locationId);
@@ -41,6 +49,6 @@ public class RescueController {
 	public List<LocationData> retrieveAllLocations() {
 		log.info("Retrieving all locations");
 		return rescueService.retrieveAllLocations();
-	}  // end of retrieveAllLocations
+	}  // end of retrieveAllLocations method --------
 	
 }  // end of RescueController class -----------
