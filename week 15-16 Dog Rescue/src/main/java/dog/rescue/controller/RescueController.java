@@ -1,9 +1,11 @@
 package dog.rescue.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,5 +52,14 @@ public class RescueController {
 		log.info("Retrieving all locations");
 		return rescueService.retrieveAllLocations();
 	}  // end of retrieveAllLocations method --------
+	
+	@DeleteMapping("/location/{locationId}")
+	public Map<String, String> deleteLocation(@PathVariable Long locationId) {
+		log.info("Deleting location with ID=" + locationId + ".");
+		
+		rescueService.deleteLocation(locationId);
+		return Map.of("message", "Location with ID=" + locationId + " was deleted successfully.");
+		
+	} // end of deleteLocation method ------
 	
 }  // end of RescueController class -----------

@@ -96,4 +96,11 @@ public class RescueService {
 	    return loc1.getBusinessName().compareTo(loc2.getBusinessName());
 	  }  // end of sortLocationByBusinessName method -------
 
+	  @Transactional(readOnly = false)
+	  public void deleteLocation(Long locationId) {
+		Location location = findLocationById(locationId);
+		locationDao.delete(location);
+		
+	}  // end of deleteLocation method -----
+
 } // end of RescueService class -----

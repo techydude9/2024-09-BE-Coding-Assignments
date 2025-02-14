@@ -12,7 +12,34 @@ import dog.rescue.entity.Location;
 
 public class RescueServiceTestSupport {
 
+	private static final String DOG_TABLE = "dog";
+	private static final String DOG_BREED_TABLE = "dog_breed";
+	private static final String BREED_TABLE = "breed";
 	private static final String LOCATION_TABLE = "location";
+
+	private static final String INSERT_DOG_1_SQL = """
+			INSERT INTO dog 
+			(age, color, name, location_id)
+			VALUES (4, 'Brown and white', 'Ralphy', 1)
+			""";
+
+	private static final String INSERT_DOG_2_SQL = """
+			INSERT INTO dog 
+			(age, color, name, location_id)
+			VALUES (6, 'Gray and black', 'Murdock', 1)
+			""";
+
+	private static final String INSERT_BREEDS_1_SQL = """
+			INSERT INTO dog_breed 
+			(dog_id,breed_id)
+			VALUES (1, 3), (1, 13)
+			""";
+
+	private static final String INSERT_BREEDS_2_SQL = """
+			INSERT INTO dog_breed 
+			(dog_id,breed_id)
+			VALUES (2, 5), (2, 16)
+			""";
 
 	// @formatter:off
 	private LocationData insertAddress1 = new LocationData (
@@ -102,4 +129,30 @@ public class RescueServiceTestSupport {
 		return updateAddress1;
 	}  // end of buildUpdateLocation method ----
 	
+	protected void insertDog(int which) {
+		String dogSql = which == 1 ? INSERT_DOG_1_SQL : INSERT_DOG_2_SQL;
+		String breedSql =
+				which == 1 ? INSERT_BREEDS_1_SQL : INSERT_BREEDS_2_SQL;
+		
+		jdbcTemplate.update(dogSql);
+		jdbcTemplate.update(breedSql);
+		
+	}  // end of insertDog method -----
+	
+	protected int rowsInBreedTable() {
+		return JdbcTestUtils.countRowsInTable(jdbcTemplate, BREED_TABLE);
+	} // end of rowsInBreedTable method -----
+
+	protected int rowsInDogBreedTable() {
+		return JdbcTestUtils.countRowsInTable(jdbcTemplate, DOG_BREED_TABLE);
+	}  // end of rowsInDogBreedTable method -------
+
+	protected int rowsInDogTable() {
+		return JdbcTestUtils.countRowsInTable(jdbcTemplate, DOG_TABLE);
+	}  // end of rowsInDogTable method ------
+
+	protected void deleteLocation(Long locationId) {
+		rescueController.deleteLocation(locationId);
+	}  // end of deleteLocation method --------
+
 }  // end of RescueServiceTestSupport class -----
