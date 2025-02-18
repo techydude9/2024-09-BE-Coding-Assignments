@@ -3,6 +3,7 @@ package movie.finalproj.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Actor {
 	
 	private String firstName;
 	private String lastName;
+	
+	@Column(name = "list_ranking")
 	private String listRank;
 	
 	@EqualsAndHashCode.Exclude

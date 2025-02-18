@@ -1,5 +1,7 @@
 package movie.finalproj.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,18 @@ public class MovieService {
 		return new MovieData(dbMovie);		
 	
 	} // end of saveMovie method
+
+	@Transactional(readOnly = true)
+	public MovieData retrieveMovieById(Long movieId) {
+		Movie movie = findMovieById(movieId);
+		return new MovieData(movie);
+	}  // end of retrieveMovieById method -------
+
+	private Movie findMovieById(Long movieId) {
+		return movieDao.findById(movieId).orElseThrow(
+				() -> new NoSuchElementException("Movie with ID=" + movieId + " was not found."));
+				
+	}  // end of findMovieById method -----
 	
 	
 }  // end of MovieService class ------

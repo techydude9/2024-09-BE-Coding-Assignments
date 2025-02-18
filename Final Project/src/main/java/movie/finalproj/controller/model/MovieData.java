@@ -18,6 +18,7 @@ public class MovieData {
 	private String description;
 	private Integer releaseYear;
 	private Set<ReviewData> reviews = new HashSet<>();
+	private Set<ActorData> actors = new HashSet<>();
 	
 	public MovieData (Movie movie) {
 		this.movieId = movie.getMovieId();
@@ -28,8 +29,11 @@ public class MovieData {
 		for(Review review : movie.getReviews()) {
 			this.reviews.add(new ReviewData(review));
 		} // end of for - Review ---
-				
-				
+		
+		for(Actor actor : movie.getActors()) {
+			this.actors.add(new ActorData(actor));
+		} // end of for - Actors
+		
 	} // end of MovieData movie method ----
 	
 	public MovieData(Long movieId, String title, String description, Integer releaseYear) {
@@ -67,7 +71,7 @@ public class MovieData {
 		public ReviewData(Review review) {
 			this.reviewId = review.getReviewId();
 			this.reviewerName = review.getReviewerName();
-			this.reviewText = review.getReview();
+			this.reviewText = review.getReviewText();
 			this.stars = review.getStars();
 			this.createdTimeStamp = review.getCreatedTimeStamp();
 		} // end of ReviewData review method ----
@@ -77,7 +81,7 @@ public class MovieData {
 			
 			review.setReviewId(reviewId);
 			review.setReviewerName(reviewerName);
-			review.setReview(reviewText);
+			review.setReviewText(reviewText);;
 			review.setStars(stars);
 			review.setCreatedTimeStamp(createdTimeStamp);
 			

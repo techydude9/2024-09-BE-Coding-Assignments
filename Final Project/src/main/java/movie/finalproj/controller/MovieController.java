@@ -2,6 +2,8 @@ package movie.finalproj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,9 @@ public class MovieController {
 		return movieService.saveMovie(movieData);
 	} // end of createLocation method ----
 	
-
+	@GetMapping("/movie/{movieId}")
+	public MovieData retrieveMovie(@PathVariable Long movieId) {
+		log.info("Retrieving movie with ID={}", movieId);
+		return movieService.retrieveMovieById(movieId);
+	}  // end of retrieveMovie method -------
 }  // end of MovieController class ------

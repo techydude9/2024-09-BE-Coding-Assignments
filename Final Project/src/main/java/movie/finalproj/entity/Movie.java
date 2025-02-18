@@ -33,7 +33,7 @@ public class Movie {
 	@EqualsAndHashCode.Exclude
 	private int releaseYear;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Review> reviews = new HashSet<>();
 	
 	@EqualsAndHashCode.Exclude

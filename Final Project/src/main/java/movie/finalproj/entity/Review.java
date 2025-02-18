@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +22,13 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long reviewId;
 	
+	@Column(name = "name")
 	private String reviewerName;
-	private String review;
+	private String reviewText;
 	private String stars;
 	
 	@CreationTimestamp
+	@Column(name = "created_timestamp")
 	private LocalDateTime createdTimeStamp;
 		
 	@EqualsAndHashCode.Exclude
