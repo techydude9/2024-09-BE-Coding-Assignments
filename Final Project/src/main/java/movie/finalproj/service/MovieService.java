@@ -48,6 +48,12 @@ public class MovieService {
 			.toList();
 		// @formatter:on
 	}  // end of retrieveAllMovies method -----
+
+	@Transactional(readOnly = false)
+	public void deleteMovie(Long movieId) {
+		Movie movie = findMovieById(movieId);
+		movieDao.delete(movie);
+	}  // end of deleteMovie method ----
 	
 	
 }  // end of MovieService class ------
