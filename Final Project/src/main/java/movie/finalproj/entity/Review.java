@@ -1,5 +1,9 @@
 package movie.finalproj.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +23,10 @@ public class Review {
 	
 	private String reviewerName;
 	private String review;
-	private int stars;
-	private String createdTimeStamp;
+	private String stars;
+	
+	@CreationTimestamp
+	private LocalDateTime createdTimeStamp;
 		
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
