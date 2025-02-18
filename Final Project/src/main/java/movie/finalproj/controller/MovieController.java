@@ -1,5 +1,7 @@
 package movie.finalproj.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,4 +36,10 @@ public class MovieController {
 		log.info("Retrieving movie with ID={}", movieId);
 		return movieService.retrieveMovieById(movieId);
 	}  // end of retrieveMovie method -------
+	
+	@GetMapping("/movie")
+	public List<MovieData> retrieveAllMovies() {
+		log.info("Retrieving all movies.");
+		return movieService.retrieveAllMovies();
+	}
 }  // end of MovieController class ------

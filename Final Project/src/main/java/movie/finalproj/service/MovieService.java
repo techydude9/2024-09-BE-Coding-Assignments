@@ -1,5 +1,6 @@
 package movie.finalproj.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,17 @@ public class MovieService {
 				() -> new NoSuchElementException("Movie with ID=" + movieId + " was not found."));
 				
 	}  // end of findMovieById method -----
+
+	@Transactional(readOnly = true)
+	public List<MovieData> retrieveAllMovies() {
+		
+		// @formatter:off
+		return movieDao.findAll()
+			.stream()
+			.map(MovieData::new)
+			.toList();
+		// @formatter:on
+	}  // end of retrieveAllMovies method -----
 	
 	
 }  // end of MovieService class ------
