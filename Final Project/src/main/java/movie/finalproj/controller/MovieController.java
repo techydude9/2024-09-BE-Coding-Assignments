@@ -27,6 +27,10 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	
+	/*
+	 * This section is for movie table mappings
+	 */
+	
 	@PostMapping("/movie")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public MovieData createMovie(@RequestBody MovieData movieData) {
@@ -59,4 +63,5 @@ public class MovieController {
 		movieService.deleteMovie(movieId);
 		return Map.of("message", "Movie with ID=" + movieId + " was successfully deleted.");
 	}  // end of deleteMovie method ----
+
 }  // end of MovieController class ------

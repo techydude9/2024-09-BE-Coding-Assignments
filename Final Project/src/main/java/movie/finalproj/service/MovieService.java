@@ -16,7 +16,7 @@ public class MovieService {
 
 	@Autowired
 	private MovieDao movieDao;
-
+	
 	@Transactional(readOnly = false)
 	public MovieData saveMovie(MovieData movieData) {
 		Movie movie = movieData.toMovie();
@@ -54,6 +54,6 @@ public class MovieService {
 		Movie movie = findMovieById(movieId);
 		movieDao.delete(movie);
 	}  // end of deleteMovie method ----
-	
+
 	
 }  // end of MovieService class ------
