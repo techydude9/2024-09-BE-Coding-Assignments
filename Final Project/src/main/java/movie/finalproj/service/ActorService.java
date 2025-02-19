@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import movie.finalproj.controller.model.ActorData;
 import movie.finalproj.dao.ActorDao;
+import movie.finalproj.entity.Actor;
 
 @Service
 public class ActorService {
@@ -25,5 +26,13 @@ public class ActorService {
 			.toList();
 		// @formatter:on
 	}  // end of retrieveAllActors method -----
+
+	@Transactional(readOnly = false)
+	public ActorData saveActor(ActorData actorData) {
+		Actor actor = actorData.toActor();
+		Actor dbActor = actorDao.save(actor);
+		
+		return new ActorData(dbActor);
+	}  // end of saveActor method -----
 	
 } // end of ActorService class -----
