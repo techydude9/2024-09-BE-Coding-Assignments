@@ -32,7 +32,7 @@ public class MovieService {
 		return new MovieData(movie);
 	}  // end of retrieveMovieById method -------
 
-	private Movie findMovieById(Long movieId) {
+	public Movie findMovieById(Long movieId) {
 		return movieDao.findById(movieId).orElseThrow(
 				() -> new NoSuchElementException("Movie with ID=" + movieId + " was not found."));
 				
